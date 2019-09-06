@@ -13,7 +13,22 @@ mongoose
   })
   .then(result => {
     console.log("Success", result);
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
 
+      {
+        duration: 100
+      },
+      {
+        new: true
+      }
+    );
+  })
+  .then(updatedDoc => {
+    console.log("Updated doc", updatedDoc);
+    return Recipe.findOneAndDelete({ title: "Carrot Cake" });
+  })
+  .then(() => {
     return mongoose.connection.close();
   })
   .then(() => console.log("conn closed"))
